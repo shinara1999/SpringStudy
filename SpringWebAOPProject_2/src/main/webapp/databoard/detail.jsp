@@ -93,7 +93,7 @@ $(function(){
        		<td colspan="3">
        			<ul>
        				<c:forEach var="fn" items="${fList }" varStatus="s">
-       					<li>${fn }(${sList[s.index]}Bytes)</li>
+       					<li><a href="download.do?fn=${fn }">${fn }</a>(${sList[s.index]}&nbsp;Bytes)</li>
        				</c:forEach>
        			</ul>
        		</td>
@@ -105,7 +105,6 @@ $(function(){
        </tr>
        <tr>
          <td colspan="4" class="text-right">
-          <a href="reply.do?pno=${vo.no }" class="btn btn-xs btn-danger">답변</a>
           <a href="update.do?no=${vo.no }" class="btn btn-xs btn-success">수정</a>
           <span class="btn btn-xs btn-info" id="del">삭제</span>
           <a href="list.do" class="btn btn-xs btn-warning">목록</a>

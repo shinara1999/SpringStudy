@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import com.sist.mapper.*;
 // MVC 기초 => Jquery => Vue
@@ -23,6 +24,9 @@ import com.sist.mapper.*;
 @Repository
 public class DataBoardDAO {
 	@Autowired
+	private BCryptPasswordEncoder encoder; // 비밀번호 확인
+	
+	@Autowired
 	private DataBoardMapper mapper;
 	
 	public List<DataBoardVO> databoardListData(int start, int end)
@@ -41,5 +45,39 @@ public class DataBoardDAO {
 	{
 		mapper.hitIncrement(no);
 		return mapper.databoardDetailData(no);
+	}
+	
+	// 삭제하기
+	public DataBoardVO databoardFileInfoData(int no)
+	{
+		return mapper.databoardFileInfoData(no);
+	}
+	public boolean databoardDelete(int no, String pwd)
+	{
+		boolean bCheck=false;
+		String db_pwd=mapper.databoardGetPassword(no);
+		if(encoder.matches(pwd, db_pwd)) // db에 저장된 pwd와 입력된 pwd가 같은지 판별 => 복호화
+		{
+			bCheck=true;
+			mapper.databoardDelete(no);
+		}
+		return bCheck;
+	}
+	
+	// 수정하기
+	public DataBoardVO databoardUpdateData(int no)
+	{
+		return mapper.databoardDetailData(no);
+	}
+	public boolean databoardUpdate(DataBoardVO vo)
+	{
+		boolean bCheck=false;
+		String db_pwd=mapper.databoardGetPassword(vo.getNo());
+		if(encoder.matches(vo.getPwd(), db_pwd))
+		{
+			bCheck=true;
+			mapper.databoardUpdate(vo);
+		}
+		return bCheck;
 	}
 }

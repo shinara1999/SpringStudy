@@ -9,6 +9,7 @@ import java.util.List;
 	private List<MultipartFile> files;
  */
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -48,6 +49,26 @@ public interface DataBoardMapper {
 			+"FROM springDataBoard "
 			+"WHERE no=#{no}")
 	public DataBoardVO databoardDetailData(int no);
+	
+	// 삭제하기 (3개의 sql문장 필요)
+	@Select("SELECT filename, filecount "
+			+"FROM springDataBoard "
+			+"WHERE no=#{no}")
+	public DataBoardVO databoardFileInfoData(int no);
+	
+	@Select("SELECT pwd FROM springDataBoard "
+			+"WHERE no=#{no}")
+	public String databoardGetPassword(int no);
+	
+	@Delete("DELETE FROM springDataBoard "
+			+"WHERE no=#{no}")
+	public void databoardDelete(int no);
+	
+	// 수정하기
+	@Update("UPDATE springDataBoard SET "
+			+"name=#{name}, subject=#{subject}, content=#{content}, filename=#{filename}, filesize=#{filesize}, filecount=#{filecount} "
+			+"WHERE no=#{no}")
+	public void databoardUpdate(DataBoardVO vo);
 }
 
 
