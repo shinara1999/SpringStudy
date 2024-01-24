@@ -1,0 +1,54 @@
+package com.sist.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import com.sist.dao.FoodVO;
+
+public interface FoodMapper {
+	@Select("SELECT fno, poster, name, num "
+			+"FROM (SELECT fno, poster, name, rownum as num "
+			+"FROM (SELECT fno, poster, name "
+			+"FROM food_menu_house ORDER BY fno ASC)) "
+			+"WHERE num BETWEEN #{start} AND #{end}")
+	public List<FoodVO> foodListData(@Param("start") int start, @Param("end") int end); // 매개변수 여러개일 때 param 사용
+	
+	@Select("SELECT CEIL(COUNT(*)/12.0) FROM food_menu_house")
+	public int foodTotalPage();
+	
+	// detail
+	@Select("SELECT fno, name, type, address, price, time, content, poster "
+			+"FROM food_menu_house "
+			+"WHERE fno=#{fno}")
+	public FoodVO foodDetailData(int fno);
+	
+	// 찾기 (find)
+	@Select("SELECT fno, poster, name, num "
+			+"FROM (SELECT fno, poster, name, rownum as num "
+			+"FROM (SELECT fno, poster, name "
+			+"FROM food_menu_house "
+			+"WHERE address LIKE '%'||#{address}||'%' "
+			+"ORDER BY fno ASC)) "
+			+"WHERE num BETWEEN #{start} AND #{end}")
+	public List<FoodVO> foodFindData(Map map);
+	
+	// 찾기 totalpage
+	@Select("SELECT CEIL(COUNT(*)/12.0) "
+			+"FROM food_menu_house "
+			+"WHERE address LIKE '%'||#{address}||'%'")
+	public int foodFindTotalPage(String address);
+}
+
+
+
+
+
+
+
+
+
+
+

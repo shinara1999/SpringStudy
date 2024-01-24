@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	 <!-- 
+		public class MyDataSource {
+			private String driver;
+			private String url;
+			private String username, password;
+		}
+	 -->
+	 <bean id="ds" class="com.sist.dao.MyDataSource"
+	 	p:driver="oracle.jdbc.driver.OracleDriver"
+	 	p:url="jdbc:oracle:thin:@localhost:1521:XE"
+	 	p:username="hr"
+	 	p:password="happy"
+	 />
+	 <!-- 
+	 	public EmpDAO(MyDataSource ds)
+		{
+			this.ds=ds;
+			try
+			{
+				Class.forName(ds.getDriver());
+			}catch (Exception e) {}
+		}
+		
+		일반변수는 그냥, 객체는 -ref 사용
+	 -->
+	 <bean id="dao" class="com.sist.dao.EmpDAO"
+	 	c:ds-ref="ds"
+	 />
+	 <!-- 
+	 	public class DBAspect {
+			private EmpDAO dao;
+
+			public void setDao(EmpDAO dao) {
+				this.dao = dao;
+		}
+	 -->
+	 <bean id="aspect" class="com.sist.aop.DBAspect"
+	 	p:dao-ref="dao"
+	 />
+	 <!-- 공통적인 소스를 모아서 자동 호출이 가능하게 만든다. 공통모듈 => AOP -->
+	 <aop:config>
+	 	<aop:aspect ref="aspect">
+	 		<aop:before method="before"
+	 			pointcut="execution(* com.sist.dao.EmpDAO.emp*(..))"
+	 		/>
+	 		<aop:after method="after"
+	 			pointcut="execution(* com.sist.dao.EmpDAO.emp*(..))"
+	 		/>
+	 		<aop:after-returning method="afterReturning"
+	 		pointcut="execution(* com.sist.dao.EmpDAO.emp*(..))"
+	 		returning="obj"
+	 		/>
+	 		<aop:after-throwing method="afterThrowing"
+	 		pointcut="execution(* com.sist.dao.EmpDAO.emp*(..))"
+	 		throwing="ex"
+	 		/>
+	 		<aop:after-throwing method="afterThrowing"
+	 		pointcut="execution(* com.sist.dao.EmpDAO.emp*(..))"
+	 		throwing="ex"
+	 		/>
+	 	</aop:aspect>
+	 </aop:config>
+</beans>
+
+
+
+
+
+
