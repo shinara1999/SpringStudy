@@ -27,12 +27,14 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">스토어
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">전체상품</a></li>
+          <li><a href="../goods/main.do">전체상품</a></li>
           <li><a href="#">신상품</a></li>
           <li><a href="#">베스트상품</a></li>
         </ul>
       </li>
       <li><a href="#">실시간 채팅</a></li>
+      <li><a href="../food/find.do">맛집 검색</a></li>
+      <li><a href="../goods/find.do">상품 검색</a></li>
     </ul>
   </div>
 </nav>
