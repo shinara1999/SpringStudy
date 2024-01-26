@@ -307,42 +307,44 @@
 	<artifactId>asm</artifactId>
 	<version>3.1</version>
 	</dependency>
+	
 	<!--  tiles   -->
 	<dependency>
-	<groupId>org.apache.tiles</groupId>
-	<artifactId>tiles-core</artifactId>
-	<version>2.2.2</version>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-core</artifactId>
+		<version>3.0.3</version>
 	</dependency>
 	<dependency>
-	<groupId>org.apache.tiles</groupId>
-	<artifactId>tiles-jsp</artifactId>
-	<version>2.2.2</version>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-jsp</artifactId>
+		<version>3.0.3</version>
 	</dependency>
 	<dependency>
-	<groupId>org.apache.tiles</groupId>
-	<artifactId>tiles-api</artifactId>
-	<version>2.2.2</version>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-api</artifactId>
+		<version>3.0.3</version>
 	</dependency>
 	<dependency>
-	<groupId>org.apache.tiles</groupId>
-	<artifactId>tiles-servlet</artifactId>
-	<version>2.2.2</version>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-servlet</artifactId>
+		<version>3.0.3</version>
 	</dependency>
 	<dependency>
-	<groupId>commons-beanutils</groupId>
-	<artifactId>commons-beanutils</artifactId>
-	<version>1.9.2</version>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+		<version>1.9.2</version>
 	</dependency>
 	<dependency>
-	<groupId>commons-digester</groupId>
-	<artifactId>commons-digester</artifactId>
-	<version>2.1</version>
+		<groupId>commons-digester</groupId>
+		<artifactId>commons-digester</artifactId>
+		<version>2.1</version>
 	</dependency>
 	<dependency>
-	<groupId>org.antlr</groupId>
-	<artifactId>antlr-runtime</artifactId>
-	<version>3.5.2</version>
+		<groupId>org.antlr</groupId>
+		<artifactId>antlr-runtime</artifactId>
+		<version>3.5.2</version>
 	</dependency>
+	
 	<!--  XML  -->
 	<dependency>
 	<groupId>com.sun.xml.bind</groupId>

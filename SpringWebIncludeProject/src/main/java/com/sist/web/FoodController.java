@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.*;
 import com.sist.dao.*;
 import com.sist.vo.FoodVO;
+import com.sist.vo.ReplyVO;
 /*
 		RedirectAttributes
 		Model
@@ -52,6 +53,9 @@ public class FoodController {
 	@Autowired
 	private FoodDAO dao;
 	
+	@Autowired // dao마다 따로따로 줘야 한다.
+	private ReplyDAO rDao;
+	
 	// food/detail_before.do
 	@GetMapping("food/detail_before.do")
 	public String food_detail_before(int fno, HttpServletResponse response, RedirectAttributes ra) // RedirectAttributes : ? 안붙여줘도 된다.
@@ -70,6 +74,9 @@ public class FoodController {
 	public String food_detail(int fno, Model model)
 	{
 		FoodVO vo=dao.foodDetailData(fno);
+		// 댓글
+		List<ReplyVO> rList=rDao.replyListData(fno);
+		model.addAttribute("rList", rList);
 		model.addAttribute("vo", vo);
 		model.addAttribute("main_jsp", "../food/detail.jsp");
 		return "main/main";

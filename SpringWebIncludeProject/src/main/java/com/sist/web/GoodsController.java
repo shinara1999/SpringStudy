@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sist.dao.GoodsDAO;
+import com.sist.dao.GoodsReplyDAO;
 import com.sist.vo.FoodVO;
+import com.sist.vo.GoodsReplyVO;
 import com.sist.vo.GoodsVO;
 
 @Controller
@@ -23,6 +25,10 @@ public class GoodsController {
 		// 상품 리스트 출력
 		@Autowired
 		private GoodsDAO dao;
+		
+		// 댓글용
+		@Autowired
+		private GoodsReplyDAO gDao;
 		
 		@GetMapping("goods/main.do")
 		public String goods_main(String page, Model model)
@@ -71,6 +77,9 @@ public class GoodsController {
 		public String goods_detail(int no, Model model)
 		{
 			GoodsVO vo=dao.goodsDetailData(no);
+			// 댓글
+			List<GoodsReplyVO> gList=gDao.replyListData(no);
+			model.addAttribute("gList", gList);
 			model.addAttribute("vo", vo);
 			model.addAttribute("main_jsp", "../goods/detail.jsp");
 			return "goods/main";

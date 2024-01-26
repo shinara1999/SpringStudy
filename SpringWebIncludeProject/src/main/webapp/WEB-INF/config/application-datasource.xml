@@ -23,10 +23,16 @@
        p:password="happy"
     />
     <!-- Transcation 등록 -->
+    <tx:annotation-driven/>
+    <bean id="transactionManager"
+    	class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+    	p:dataSource-ref="ds"
+    />
     <!-- SqlSessionFactory -->
     <bean id="ssf"
        class="org.mybatis.spring.SqlSessionFactoryBean"
        p:dataSource-ref="ds"
+       p:configLocation="/WEB-INF/config/Config.xml"
     />
     <!-- Mapper구현 요청  -->
     <mybatis-spring:scan base-package="com.sist.mapper"
